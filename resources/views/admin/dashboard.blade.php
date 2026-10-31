@@ -1,15 +1,15 @@
 <x-layouts.admin title="Dashboard Admin">
-    <div class="flex flex-col w-full p-8 space-y-8 max-w-container-max mx-auto">
+    <div class="flex flex-col w-full p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-container-max mx-auto">
         <!-- Header Section -->
         <div class="flex flex-col gap-2 mb-2">
-            <h1 class="font-display-lg text-display-lg text-on-surface font-bold">Dashboard Overview</h1>
+            <h1 class="text-display-lg-mobile sm:text-display-lg font-display-lg text-on-surface font-bold">Dashboard Overview</h1>
             <p class="font-body-md text-body-md text-on-surface-variant">Ringkasan aktivitas dan metrik utama perpustakaan hari ini.</p>
         </div>
 
         <!-- Statistics Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
             <!-- Total Buku -->
-            <div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm flex items-center justify-between group relative overflow-hidden border border-outline-variant/30">
+            <div class="bg-surface-container-lowest rounded-xl p-4 sm:p-6 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group relative overflow-hidden border border-outline-variant/30">
                 <div class="relative z-10">
                     <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-2 font-semibold">Total Buku</p>
                     <h2 class="font-display-lg text-display-lg text-on-surface font-bold">{{ number_format($totalBooks) }}</h2>
@@ -20,7 +20,7 @@
             </div>
 
             <!-- Total Anggota -->
-            <div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm flex items-center justify-between group relative overflow-hidden border border-outline-variant/30">
+            <div class="bg-surface-container-lowest rounded-xl p-4 sm:p-6 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group relative overflow-hidden border border-outline-variant/30">
                 <div class="relative z-10">
                     <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-2 font-semibold">Total Anggota</p>
                     <h2 class="font-display-lg text-display-lg text-on-surface font-bold">{{ number_format($totalMembers) }}</h2>
@@ -31,7 +31,7 @@
             </div>
 
             <!-- Sedang Dipinjam -->
-            <div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm flex items-center justify-between group relative overflow-hidden border border-outline-variant/30">
+            <div class="bg-surface-container-lowest rounded-xl p-4 sm:p-6 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group relative overflow-hidden border border-outline-variant/30">
                 <div class="relative z-10">
                     <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-2 font-semibold">Sedang Dipinjam</p>
                     <h2 class="font-display-lg text-display-lg text-on-surface font-bold">{{ number_format($borrowedCount) }}</h2>
@@ -42,7 +42,7 @@
             </div>
 
             <!-- Terlambat -->
-            <div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm flex items-center justify-between group relative overflow-hidden border border-outline-variant/30">
+            <div class="bg-surface-container-lowest rounded-xl p-4 sm:p-6 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group relative overflow-hidden border border-outline-variant/30">
                 <div class="relative z-10">
                     <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-2 font-semibold">Terlambat</p>
                     <h2 class="font-display-lg text-display-lg text-error font-bold">{{ number_format($overdueCount) }}</h2>
@@ -85,7 +85,7 @@
         </div>
 
         <!-- Two Columns Layout -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8">
             <!-- Left Column: Books Info (4 cols) -->
             <div class="lg:col-span-4 flex flex-col gap-8">
                 <!-- Buku Populer -->

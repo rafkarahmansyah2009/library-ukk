@@ -1,11 +1,11 @@
 <x-layouts.admin title="Peminjaman Buku">
     <div class="flex flex-col w-full h-full pb-16 relative bg-background font-body-md text-on-background">
         <!-- Header Section -->
-        <div class="w-full bg-surface-container-low px-8 pt-8 pb-12 mb-8 relative z-10 rounded-b-3xl shadow-sm">
+        <div class="w-full bg-surface-container-low px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-8 sm:pb-12 mb-6 sm:mb-8 relative z-10 rounded-b-3xl shadow-sm">
             <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div class="flex flex-col gap-2">
                     <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Sirkulasi & Transaksi</span>
-                    <h1 class="font-display-lg text-display-lg text-primary m-0 p-0 leading-none">Daftar Peminjaman</h1>
+                    <h1 class="text-display-lg-mobile sm:text-display-lg font-display-lg text-primary m-0 p-0 leading-none">Daftar Peminjaman</h1>
                     <p class="font-body-md text-body-md text-on-surface-variant max-w-xl mt-2">
                         Pantau seluruh sirkulasi peminjaman buku aktif, batas waktu jatuh tempo, dan riwayat pengembalian.
                     </p>
@@ -19,7 +19,7 @@
             </div>
 
             <!-- Filter & Search Bar -->
-            <form method="GET" action="{{ route('admin.borrowings.index') }}" class="max-w-container-max mx-auto mt-8 flex flex-col md:flex-row gap-4">
+            <form method="GET" action="{{ route('admin.borrowings.index') }}" class="max-w-container-max mx-auto mt-6 sm:mt-8 flex flex-col md:flex-row gap-3 sm:gap-4">
                 <div class="flex-1 relative">
                     <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
                     <input
@@ -30,7 +30,7 @@
                         class="w-full bg-surface-container-lowest text-on-surface font-body-sm text-body-sm pl-12 pr-4 py-3 rounded-xl border border-outline-variant focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-shadow shadow-sm"
                     >
                 </div>
-                <div class="flex gap-4">
+                <div class="flex flex-wrap gap-3 sm:gap-4">
                     <div class="relative min-w-[180px]">
                         <select
                             name="status"
@@ -54,9 +54,9 @@
         </div>
 
         <!-- Main Content Area -->
-        <div class="px-8 max-w-container-max mx-auto w-full flex-1">
+        <div class="px-4 sm:px-6 lg:px-8 max-w-container-max mx-auto w-full flex-1">
             <!-- Summary Stats -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8 -mt-2">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8 -mt-2">
                 <div class="bg-surface-container-lowest p-5 rounded-2xl shadow-sm border border-outline-variant/30 flex items-center gap-4 hover:shadow-md transition-shadow">
                     <div class="w-12 h-12 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary">
                         <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">outbound</span>

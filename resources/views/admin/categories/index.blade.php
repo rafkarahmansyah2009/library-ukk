@@ -1,5 +1,5 @@
 <x-layouts.admin title="Kategori Buku">
-    <div class="flex flex-col w-full p-8 space-y-6 max-w-container-max mx-auto">
+    <div class="flex flex-col w-full p-4 sm:p-6 lg:p-8 space-y-6 max-w-container-max mx-auto">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
                 <nav class="flex items-center gap-2 text-body-sm text-on-surface-variant mb-1">
@@ -7,7 +7,7 @@
                     <span class="material-symbols-outlined text-[16px]">chevron_right</span>
                     <span class="text-primary font-semibold">Kategori</span>
                 </nav>
-                <h1 class="font-display-lg text-display-lg text-on-surface font-bold">Kategori Buku</h1>
+                <h1 class="text-display-lg-mobile sm:text-display-lg font-display-lg text-on-surface font-bold">Kategori Buku</h1>
             </div>
             <a href="{{ route('admin.categories.create') }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-container hover:bg-primary-container/90 text-on-primary rounded-xl font-title-sm text-title-sm font-semibold shadow-md transition-colors">
                 <span class="material-symbols-outlined text-[20px]">add</span>

@@ -1,7 +1,7 @@
 <x-layouts.admin title="Edit Anggota - {{ $member->name }}">
     <div class="flex flex-col w-full h-full pb-16 relative bg-background font-body-md text-on-background">
         <!-- Header -->
-        <div class="w-full bg-surface-container-low px-8 pt-8 pb-10 mb-8 rounded-b-3xl shadow-sm">
+        <div class="w-full bg-surface-container-low px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-8 sm:pb-10 mb-6 sm:mb-8 rounded-b-3xl shadow-sm">
             <div class="max-w-3xl mx-auto flex items-center justify-between">
                 <div>
                     <div class="flex items-center gap-2 text-on-surface-variant text-body-sm mb-1">
@@ -9,7 +9,7 @@
                         <span>/</span>
                         <span class="text-primary font-medium">Edit</span>
                     </div>
-                    <h1 class="font-display-lg text-display-lg text-primary m-0 leading-tight">Edit Data Anggota</h1>
+                    <h1 class="text-display-lg-mobile sm:text-display-lg font-display-lg text-primary m-0 leading-tight">Edit Data Anggota</h1>
                     <p class="font-body-md text-body-md text-on-surface-variant mt-1">
                         Perbarui profil, informasi kelas/mapel, atau status keaktifan <strong class="text-primary">{{ $member->name }}</strong>.
                     </p>

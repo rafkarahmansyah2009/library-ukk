@@ -9,7 +9,7 @@
                     Sistem Perpustakaan Modern
                 </div>
                 {{-- Title - slight delay --}}
-                <h1 class="animate-fade-slide-up animate-delay-100 font-display-lg text-display-lg text-primary font-bold leading-tight">
+                <h1 class="animate-fade-slide-up animate-delay-100 text-display-lg-mobile sm:text-display-lg font-display-lg text-primary font-bold leading-tight">
                     Akses Literasi & Referensi Kejuruan SMKN 5
                 </h1>
                 {{-- Description --}}

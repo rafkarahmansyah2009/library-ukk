@@ -1,11 +1,11 @@
 <x-layouts.admin title="Pengembalian Buku">
     <div class="flex flex-col w-full h-full pb-16 relative bg-background font-body-md text-on-background">
         <!-- Header Section -->
-        <div class="w-full bg-surface-container-low px-8 pt-8 pb-12 mb-8 relative z-10 rounded-b-3xl shadow-sm">
+        <div class="w-full bg-surface-container-low px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-8 sm:pb-12 mb-6 sm:mb-8 relative z-10 rounded-b-3xl shadow-sm">
             <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div class="flex flex-col gap-2">
                     <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Sirkulasi & Transaksi</span>
-                    <h1 class="font-display-lg text-display-lg text-primary m-0 p-0 leading-none">Pengembalian Buku</h1>
+                    <h1 class="text-display-lg-mobile sm:text-display-lg font-display-lg text-primary m-0 p-0 leading-none">Pengembalian Buku</h1>
                     <p class="font-body-md text-body-md text-on-surface-variant max-w-xl mt-2">
                         Proses penerimaan buku yang dikembalikan, verifikasi denda keterlambatan, dan perbarui stok otomatis.
                     </p>
@@ -47,7 +47,7 @@
         </div>
 
         <!-- Main Content Area -->
-        <div class="px-8 max-w-container-max mx-auto w-full flex-1">
+        <div class="px-4 sm:px-6 lg:px-8 max-w-container-max mx-auto w-full flex-1">
             <!-- Summary Stats -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8 -mt-2">
                 <div class="bg-surface-container-lowest p-5 rounded-2xl shadow-sm border border-outline-variant/30 flex items-center gap-4 hover:shadow-md transition-shadow">

@@ -1,11 +1,11 @@
 <x-layouts.admin title="Laporan Perpustakaan">
     <div class="flex flex-col w-full h-full pb-16 relative bg-background font-body-md text-on-background">
         <!-- Header Section -->
-        <div class="w-full bg-surface-container-low px-8 pt-8 pb-12 mb-8 relative z-10 rounded-b-3xl shadow-sm print:hidden">
+        <div class="w-full bg-surface-container-low px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-8 sm:pb-12 mb-6 sm:mb-8 relative z-10 rounded-b-3xl shadow-sm print:hidden">
             <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div class="flex flex-col gap-2">
                     <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Rekapitulasi & Statistik</span>
-                    <h1 class="font-display-lg text-display-lg text-primary m-0 p-0 leading-none">Laporan Perpustakaan</h1>
+                    <h1 class="text-display-lg-mobile sm:text-display-lg font-display-lg text-primary m-0 p-0 leading-none">Laporan Perpustakaan</h1>
                     <p class="font-body-md text-body-md text-on-surface-variant max-w-xl mt-2">
                         Rekapitulasi sirkulasi peminjaman, pengembalian, dan pendapatan denda perpustakaan SMKN 5 berdasarkan periode tanggal.
                     </p>
@@ -53,7 +53,7 @@
         </div>
 
         <!-- Main Content Area -->
-        <div class="px-8 max-w-container-max mx-auto w-full flex-1">
+        <div class="px-4 sm:px-6 lg:px-8 max-w-container-max mx-auto w-full flex-1">
             <!-- Metric Cards -->
             <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8 -mt-2 print:grid-cols-5">
                 <div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/30">
