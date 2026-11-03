@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\FineController as AdminFineController;
 use App\Http\Controllers\Admin\MemberController as AdminMemberController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\ReportController as AdminReportController;
 use App\Http\Controllers\Admin\ReturnController as AdminReturnController;
 use App\Http\Controllers\Member\BookCatalogController as MemberBookCatalogController;
@@ -49,6 +50,11 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin'])->group(
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/chart-data', [AdminDashboardController::class, 'chartData'])->name('dashboard.chart-data');
 
+    // Notifications
+    Route::get('notifications/recent', [NotificationController::class, 'getRecent'])->name('notifications.recent');
+    Route::post('notifications/{notification}/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+    Route::post('notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
+
     // Books
     Route::get('books/export', [AdminBookController::class, 'export'])->name('books.export');
     Route::post('books/{id}/restore', [AdminBookController::class, 'restore'])->name('books.restore');
@@ -77,6 +83,9 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin'])->group(
 
     // Reports
     Route::get('reports', [AdminReportController::class, 'index'])->name('reports.index');
+
+    // Account Settings
+    Route::get('profile', [ProfileController::class, 'edit'])->name('profile');
 });
 
 /*
