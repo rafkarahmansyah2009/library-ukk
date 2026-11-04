@@ -34,48 +34,48 @@ class DatabaseSeeder extends Seeder
         );
 
         $siswa1 = User::firstOrCreate(
-            ['email' => 'fikri@siswa.smkn5.sch.id'],
+            ['email' => 'rafka@siswa.smkn5.sch.id'],
             [
-                'name' => 'Ahmad Fikri',
-                'username' => 'ahmadfikri',
+                'name' => 'Rafka Rahmansyah',
+                'username' => 'rafka',
                 'password' => Hash::make('password'),
                 'role' => 'member',
                 'member_type' => 'siswa',
                 'nis' => '20231001',
-                'class' => 'XI TKJ 1',
-                'major' => 'TKJ',
+                'class' => 'XII RPL 1',
+                'major' => 'RPL',
                 'phone' => '082111223344',
                 'status' => 'active',
             ]
         );
 
         $siswa2 = User::firstOrCreate(
-            ['email' => 'siti@siswa.smkn5.sch.id'],
+            ['email' => 'tobias@siswa.smkn5.sch.id'],
             [
-                'name' => 'Siti Nurhaliza',
-                'username' => 'sitinur',
+                'name' => 'Tobias Ibrahim',
+                'username' => 'tobi',
                 'password' => Hash::make('password'),
                 'role' => 'member',
                 'member_type' => 'siswa',
                 'nis' => '20231002',
-                'class' => 'X AKL 2',
-                'major' => 'AKL',
+                'class' => 'XII RPL 1',
+                'major' => 'RPL',
                 'phone' => '083111223344',
                 'status' => 'active',
             ]
         );
 
         $siswa3 = User::firstOrCreate(
-            ['email' => 'budi@siswa.smkn5.sch.id'],
+            ['email' => 'dzikri@siswa.smkn5.sch.id'],
             [
-                'name' => 'Budi Santoso',
+                'name' => 'Dzikri Nabil Budihardha',
                 'username' => 'budisantoso',
                 'password' => Hash::make('password'),
                 'role' => 'member',
                 'member_type' => 'siswa',
                 'nis' => '20231003',
-                'class' => 'XII TSM',
-                'major' => 'TSM',
+                'class' => 'XII RPL 2',
+                'major' => 'RPl',
                 'phone' => '084111223344',
                 'status' => 'active',
             ]
@@ -98,10 +98,10 @@ class DatabaseSeeder extends Seeder
         );
 
         $guru1 = User::firstOrCreate(
-            ['email' => 'hendro@guru.smkn5.sch.id'],
+            ['email' => 'mahpud@guru.smkn5.sch.id'],
             [
-                'name' => 'Drs. Hendro Wibowo, M.Kom',
-                'username' => 'hendrowibowo',
+                'name' => 'Dr. Ir. Mahpud, M.Kom',
+                'username' => 'mahpud',
                 'password' => Hash::make('password'),
                 'role' => 'member',
                 'member_type' => 'guru',
