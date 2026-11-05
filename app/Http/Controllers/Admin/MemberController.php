@@ -70,9 +70,10 @@ class MemberController extends Controller
             'phone' => ['nullable', 'string', 'max:20'],
             'password' => ['required', 'string', 'min:6'],
             'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+            'avatar_url' => ['nullable', 'url', 'max:1000'],
         ]);
 
-        $avatarUrl = null;
+        $avatarUrl = $validated['avatar_url'] ?? null;
         if ($request->hasFile('avatar')) {
             $path = $request->file('avatar')->store('avatars', 'public');
             $avatarUrl = Storage::url($path);
@@ -137,6 +138,7 @@ class MemberController extends Controller
             'status' => ['required', Rule::in(['active', 'inactive'])],
             'password' => ['nullable', 'string', 'min:6'],
             'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+            'avatar_url' => ['nullable', 'url', 'max:1000'],
         ]);
 
         $data = [
@@ -163,6 +165,15 @@ class MemberController extends Controller
 
             $path = $request->file('avatar')->store('avatars', 'public');
             $data['avatar'] = Storage::url($path);
+        } elseif ($request->filled('avatar_url')) {
+            if ($member->avatar && str_starts_with($member->avatar, '/storage/')) {
+                $oldPath = str_replace('/storage/', '', $member->avatar);
+                if (Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
+                }
+            }
+
+            $data['avatar'] = $validated['avatar_url'];
         }
 
         if (! empty($validated['password'])) {

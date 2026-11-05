@@ -62,13 +62,14 @@ class RegisteredUserController extends Controller
             'class' => ['required', 'string', 'max:50'],
             'major' => ['required', 'string', 'max:50'],
             'profile_photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+            'profile_photo_url' => ['nullable', 'url', 'max:1000'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'terms' => ['accepted'],
         ], [
             'terms.accepted' => 'Anda harus menyetujui Syarat & Ketentuan.',
         ]);
 
-        $avatarUrl = null;
+        $avatarUrl = $request->input('profile_photo_url');
         if ($request->hasFile('profile_photo')) {
             $path = $request->file('profile_photo')->store('avatars', 'public');
             $avatarUrl = Storage::url($path);
@@ -119,13 +120,14 @@ class RegisteredUserController extends Controller
             'nip' => ['nullable', 'string', 'max:30', 'unique:'.User::class],
             'subject' => ['required', 'string', 'max:100'],
             'profile_photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+            'profile_photo_url' => ['nullable', 'url', 'max:1000'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'terms' => ['accepted'],
         ], [
             'terms.accepted' => 'Anda harus menyetujui Syarat & Ketentuan.',
         ]);
 
-        $avatarUrl = null;
+        $avatarUrl = $request->input('profile_photo_url');
         if ($request->hasFile('profile_photo')) {
             $path = $request->file('profile_photo')->store('avatars', 'public');
             $avatarUrl = Storage::url($path);

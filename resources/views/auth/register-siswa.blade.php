@@ -104,6 +104,12 @@
                                 </label>
                                 <p class="font-label-caps text-label-caps text-on-surface-variant mt-1 uppercase">Foto Profil</p>
                                 <p class="font-label-caps text-xs text-outline">JPG, PNG atau WebP (Maksimal 2MB)</p>
+                                <div class="w-full max-w-xs mt-2">
+                                    <input type="url" name="profile_photo_url" value="{{ old('profile_photo_url') }}" placeholder="Atau tautan URL foto (https://...)" class="w-full px-3 py-1.5 text-center bg-surface-container-lowest border border-outline-variant rounded-lg font-body-sm text-xs text-on-surface focus:outline-none focus:border-secondary">
+                                    @error('profile_photo_url')
+                                        <p class="text-error text-xs mt-1 text-center">{{ $message }}</p>
+                                    @enderror
+                                </div>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

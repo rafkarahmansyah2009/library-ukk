@@ -50,7 +50,18 @@ class ProfileController extends Controller
 
             $path = $request->file('avatar')->store('avatars', 'public');
             $validated['avatar'] = Storage::url($path);
+        } elseif ($request->filled('avatar_url')) {
+            if ($user->avatar && str_starts_with($user->avatar, '/storage/')) {
+                $oldPath = str_replace('/storage/', '', $user->avatar);
+                if (Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
+                }
+            }
+
+            $validated['avatar'] = $validated['avatar_url'];
         }
+
+        unset($validated['avatar_url']);
 
         $user->fill($validated);
 

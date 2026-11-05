@@ -18,12 +18,20 @@
         @method('patch')
 
         <!-- Avatar Upload & Preview -->
-        <div x-data="{ photoName: null, photoPreview: null }">
+        <div x-data="{ photoName: null, photoPreview: null, avatarUrl: '{{ old('avatar_url', (!str_starts_with($user->avatar ?? '', '/storage/') ? $user->avatar : '')) }}' }">
             <label class="block font-medium text-sm text-gray-700 dark:text-gray-300 mb-2">Foto Profil</label>
-            <div class="flex items-center gap-5">
+            <div class="flex items-start gap-5">
                 <!-- Current or Preview Avatar -->
-                <div class="relative">
-                    <template x-if="!photoPreview">
+                <div class="relative shrink-0">
+                    <template x-if="photoPreview">
+                        <span class="block w-20 h-20 rounded-full bg-cover bg-no-repeat bg-center border-2 border-blue-500 shadow-sm"
+                              :style="'background-image: url(\'' + photoPreview + '\');'">
+                        </span>
+                    </template>
+                    <template x-if="!photoPreview && avatarUrl">
+                        <img :src="avatarUrl" alt="{{ $user->name }}" class="w-20 h-20 rounded-full object-cover border-2 border-blue-500 shadow-sm" x-on:error="avatarUrl = ''">
+                    </template>
+                    <template x-if="!photoPreview && !avatarUrl">
                         @if ($user->avatar)
                             <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="w-20 h-20 rounded-full object-cover border-2 border-gray-200 dark:border-gray-700 shadow-sm">
                         @else
@@ -32,29 +40,36 @@
                             </div>
                         @endif
                     </template>
-                    <template x-if="photoPreview">
-                        <span class="block w-20 h-20 rounded-full bg-cover bg-no-repeat bg-center border-2 border-blue-500 shadow-sm"
-                              :style="'background-image: url(\'' + photoPreview + '\');'">
-                        </span>
-                    </template>
                 </div>
 
-                <div class="space-y-1">
-                    <input type="file" name="avatar" id="avatar" class="hidden" accept="image/*"
-                           x-ref="photo"
-                           x-on:change="
-                                photoName = $refs.photo.files[0].name;
-                                const reader = new FileReader();
-                                reader.onload = (e) => {
-                                    photoPreview = e.target.result;
-                                };
-                                reader.readAsDataURL($refs.photo.files[0]);
-                           ">
-                    <button type="button" x-on:click.prevent="$refs.photo.click()" class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none transition">
-                        Pilih Foto Baru
-                    </button>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Format: JPG, PNG, WEBP (Maksimal 2MB)</p>
+                <div class="space-y-2 flex-1">
+                    <div class="flex items-center gap-3">
+                        <input type="file" name="avatar" id="avatar" class="hidden" accept="image/*"
+                               x-ref="photo"
+                               x-on:change="
+                                    photoName = $refs.photo.files[0].name;
+                                    const reader = new FileReader();
+                                    reader.onload = (e) => {
+                                        photoPreview = e.target.result;
+                                    };
+                                    reader.readAsDataURL($refs.photo.files[0]);
+                               ">
+                        <button type="button" x-on:click.prevent="$refs.photo.click()" class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none transition">
+                            Pilih Foto Baru
+                        </button>
+                        <template x-if="photoPreview">
+                            <button type="button" x-on:click.prevent="photoPreview = null; $refs.photo.value = ''" class="text-xs text-red-500 hover:underline">
+                                Batal
+                            </button>
+                        </template>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">JPG, PNG, WEBP (Maks 2MB)</span>
+                    </div>
                     <x-input-error class="mt-1" :messages="$errors->get('avatar')" />
+
+                    <div>
+                        <input type="url" name="avatar_url" id="avatar_url_info" x-model="avatarUrl" placeholder="Atau gunakan URL foto profil (https://...)" class="mt-1 block w-full text-xs rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <x-input-error class="mt-1" :messages="$errors->get('avatar_url')" />
+                    </div>
                 </div>
             </div>
         </div>

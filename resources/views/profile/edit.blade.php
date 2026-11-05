@@ -1,22 +1,4 @@
-@if(auth()->user()->isAdmin())
-    <x-layouts.admin title="Profil Administrator">
-        <div class="p-8 max-w-4xl mx-auto space-y-8">
-            <h1 class="font-display-lg text-display-lg text-primary font-bold">Profil Akun</h1>
-            <div class="p-6 bg-surface-container-lowest border border-outline-variant/50 shadow-sm rounded-2xl">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
-
-            <div class="p-6 bg-surface-container-lowest border border-outline-variant/50 shadow-sm rounded-2xl">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
-        </div>
-    </x-layouts.admin>
-@else
-    <x-layouts.member title="Pengaturan Akun Member">
+<x-layouts.member title="Pengaturan Akun Member">
         <div class="w-full max-w-6xl mx-auto px-2 sm:px-4 py-2">
             <!-- Breadcrumb & Page Header -->
             <div class="flex flex-col gap-2 mb-8">
@@ -90,6 +72,7 @@
                     <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="flex flex-col gap-6" id="profileForm"
                           x-data="{
                               photoPreview: null,
+                              avatarUrl: '{{ old('avatar_url', (!str_starts_with($user->avatar ?? '', '/storage/') ? $user->avatar : '')) }}',
                               hasCustomAvatar: {{ $user->avatar ? 'true' : 'false' }},
                               handlePhoto(e) {
                                   const file = e.target.files && e.target.files[0];
@@ -114,7 +97,10 @@
                                 <template x-if="photoPreview">
                                     <img :src="photoPreview" class="w-24 h-24 rounded-full object-cover shadow-sm bg-surface-container border-2 border-secondary" alt="{{ $user->name }}">
                                 </template>
-                                <template x-if="!photoPreview">
+                                <template x-if="!photoPreview && avatarUrl">
+                                    <img :src="avatarUrl" class="w-24 h-24 rounded-full object-cover border-2 border-secondary shadow-sm bg-surface-container" alt="{{ $user->name }}" x-on:error="avatarUrl = ''">
+                                </template>
+                                <template x-if="!photoPreview && !avatarUrl">
                                     @if ($user->avatar)
                                         <img src="{{ $user->avatar }}" class="w-24 h-24 rounded-full object-cover shadow-sm bg-surface-container border border-outline-variant" id="avatarPreview" alt="{{ $user->name }}">
                                     @else
@@ -130,11 +116,11 @@
                                 </span>
                             </div>
 
-                            <div class="flex flex-col items-center sm:items-start text-center sm:text-left gap-3">
+                            <div class="flex flex-col items-center sm:items-start text-center sm:text-left gap-3 flex-1 w-full">
                                 <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2.5">
                                     <label for="avatarUploadInput" class="cursor-pointer inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-primary-container text-on-primary hover:bg-primary transition-colors font-body-sm text-body-sm font-semibold shadow-sm">
                                         <span class="material-symbols-outlined text-lg">photo_camera</span>
-                                        <span>Ubah Foto</span>
+                                        <span>Ubah File Foto</span>
                                     </label>
                                     <input
                                         type="file"
@@ -151,13 +137,34 @@
                                         @click="resetPhoto()"
                                     >
                                         <span class="material-symbols-outlined text-lg">delete</span>
-                                        <span>Batal Foto</span>
+                                        <span>Batal File</span>
                                     </button>
                                 </div>
                                 <p class="font-label-caps text-label-caps text-outline">Format JPG, PNG atau WebP. Maksimal 2MB. Resolusi disarankan 1:1.</p>
                                 @error('avatar')
                                     <p class="font-body-sm text-xs text-error mt-1">{{ $message }}</p>
                                 @enderror
+
+                                <div class="w-full mt-1">
+                                    <label for="avatar_url" class="font-body-sm text-xs font-semibold text-on-surface mb-1 block">Atau Gunakan URL Foto Profil</label>
+                                    <div class="flex items-center gap-2">
+                                        <input
+                                            type="url"
+                                            id="avatar_url"
+                                            name="avatar_url"
+                                            x-model="avatarUrl"
+                                            placeholder="https://images.unsplash.com/... atau https://..."
+                                            class="w-full px-3 py-2 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-xs border border-transparent focus:border-secondary focus:bg-surface-container-lowest focus:outline-none shadow-sm transition-all @error('avatar_url') border-error @enderror"
+                                        />
+                                        <button type="button" x-show="avatarUrl" @click="avatarUrl = ''" class="px-2.5 py-2 text-xs text-on-surface-variant hover:text-error rounded-lg bg-surface-container shrink-0">
+                                            Kosongkan
+                                        </button>
+                                    </div>
+                                    <p class="text-[11px] text-on-surface-variant mt-1">Gunakan URL langsung jika ingin menggunakan foto eksternal / avatar link.</p>
+                                    @error('avatar_url')
+                                        <p class="font-body-sm text-xs text-error mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
 
@@ -505,4 +512,3 @@
             </div>
         </div>
     </x-layouts.member>
-@endif

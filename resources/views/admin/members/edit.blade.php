@@ -23,7 +23,7 @@
 
         <!-- Form Card -->
         <div class="max-w-3xl mx-auto w-full px-4 sm:px-8">
-            <div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/50 p-6 sm:p-10" x-data="{ memberType: '{{ old('member_type', $member->member_type ?? 'siswa') }}', photoPreview: null }">
+            <div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/50 p-6 sm:p-10" x-data="{ memberType: '{{ old('member_type', $member->member_type ?? 'siswa') }}', photoPreview: null, avatarUrl: '{{ old('avatar_url', (!str_starts_with($member->avatar ?? '', '/storage/') ? $member->avatar : '')) }}' }">
                 <form method="POST" action="{{ route('admin.members.update', $member) }}" enctype="multipart/form-data" class="space-y-6">
                     @csrf
                     @method('PUT')
@@ -31,9 +31,17 @@
                     <!-- Avatar Upload -->
                     <div>
                         <label class="block font-title-sm text-body-sm font-semibold text-on-surface mb-2">Foto Profil</label>
-                        <div class="flex items-center gap-4">
-                            <div class="relative">
-                                <template x-if="!photoPreview">
+                        <div class="flex items-start gap-4">
+                            <div class="relative shrink-0 mt-1">
+                                <template x-if="photoPreview">
+                                    <span class="block w-16 h-16 rounded-full bg-cover bg-no-repeat bg-center border-2 border-secondary shadow-sm"
+                                          :style="'background-image: url(\'' + photoPreview + '\');'">
+                                    </span>
+                                </template>
+                                <template x-if="!photoPreview && avatarUrl">
+                                    <img :src="avatarUrl" alt="{{ $member->name }}" class="w-16 h-16 rounded-full object-cover border-2 border-secondary shadow-sm" x-on:error="avatarUrl = ''">
+                                </template>
+                                <template x-if="!photoPreview && !avatarUrl">
                                     @if ($member->avatar)
                                         <img src="{{ $member->avatar }}" alt="{{ $member->name }}" class="w-16 h-16 rounded-full object-cover border-2 border-secondary shadow-sm">
                                     @else
@@ -42,27 +50,37 @@
                                         </div>
                                     @endif
                                 </template>
-                                <template x-if="photoPreview">
-                                    <span class="block w-16 h-16 rounded-full bg-cover bg-no-repeat bg-center border-2 border-secondary shadow-sm"
-                                          :style="'background-image: url(\'' + photoPreview + '\');'">
-                                    </span>
-                                </template>
                             </div>
-                            <div>
-                                <input type="file" name="avatar" id="avatar" class="hidden" accept="image/*"
-                                       x-ref="photo"
-                                       x-on:change="
-                                            const reader = new FileReader();
-                                            reader.onload = (e) => { photoPreview = e.target.result; };
-                                            reader.readAsDataURL($refs.photo.files[0]);
-                                       ">
-                                <button type="button" x-on:click.prevent="$refs.photo.click()" class="px-4 py-2 bg-surface-container hover:bg-surface-container-high rounded-xl text-on-surface-variant font-body-sm text-xs font-semibold transition-colors">
-                                    Ganti Foto
-                                </button>
-                                <p class="text-xs text-on-surface-variant mt-1">Format: JPG, PNG, WEBP (Maksimal 2MB)</p>
+                            <div class="flex-1 space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <input type="file" name="avatar" id="avatar" class="hidden" accept="image/*"
+                                           x-ref="photo"
+                                           x-on:change="
+                                                const reader = new FileReader();
+                                                reader.onload = (e) => { photoPreview = e.target.result; };
+                                                reader.readAsDataURL($refs.photo.files[0]);
+                                           ">
+                                    <button type="button" x-on:click.prevent="$refs.photo.click()" class="px-4 py-2 bg-surface-container hover:bg-surface-container-high rounded-xl text-on-surface-variant font-body-sm text-xs font-semibold transition-colors">
+                                        Ganti File Foto
+                                    </button>
+                                    <template x-if="photoPreview">
+                                        <button type="button" x-on:click.prevent="photoPreview = null; $refs.photo.value = ''" class="px-3 py-2 bg-surface-container-low text-error hover:bg-error-container/20 rounded-xl font-body-sm text-xs font-semibold transition-colors">
+                                            Batal File
+                                        </button>
+                                    </template>
+                                    <span class="text-xs text-on-surface-variant">JPG, PNG, WEBP (Maks 2MB)</span>
+                                </div>
                                 @error('avatar')
                                     <p class="text-error text-xs mt-1">{{ $message }}</p>
                                 @enderror
+
+                                <div>
+                                    <input type="url" name="avatar_url" id="avatar_url" x-model="avatarUrl" placeholder="Atau perbarui URL foto (https://...)" class="w-full bg-surface-container-lowest text-on-surface font-body-sm text-body-sm px-3.5 py-2.5 rounded-xl border border-outline-variant focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary @error('avatar_url') border-error @enderror">
+                                    <p class="text-[11px] text-on-surface-variant mt-1">Tempelkan URL gambar eksternal jika foto disimpan di web atau cloud.</p>
+                                    @error('avatar_url')
+                                        <p class="text-error text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                     </div>
